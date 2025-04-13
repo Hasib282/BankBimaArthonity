@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             TransactionMainHeadSeeder::class,
             // ItemManufacturerSeeder::class,
             // ItemCategorySeeder::class,
-            // ItemUnitSeeder::class,
+            ItemUnitSeeder::class,
             // ItemFormSeeder::class,
             LocationInfoSeeder::class,
             TransactionGroupeSeeder::class,
