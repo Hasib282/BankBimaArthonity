@@ -3,7 +3,6 @@
     { "tran_groupe_name": "Party Payments",         "tran_groupe_type":"2", "tran_method":"Both" },
     { "tran_groupe_name": "Deposit To Bank",        "tran_groupe_type":"4", "tran_method":"Payment" },
     { "tran_groupe_name": "Withdraw From Bank",     "tran_groupe_type":"4", "tran_method":"Receive" },
-    { "tran_groupe_name": "Miscellaneous",          "tran_groupe_type":"7", "tran_method":"Payment" },
     { "tran_groupe_name": "Medicine",               "tran_groupe_type":"6", "tran_method":"Both" }
     
 ]

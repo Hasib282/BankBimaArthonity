@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
             
             // Setup Data Seeders
             TransactionMainHeadSeeder::class,
-            ItemManufacturerSeeder::class,
-            ItemCategorySeeder::class,
-            ItemUnitSeeder::class,
-            ItemFormSeeder::class,
+            // ItemManufacturerSeeder::class,
+            // ItemCategorySeeder::class,
+            // ItemUnitSeeder::class,
+            // ItemFormSeeder::class,
             LocationInfoSeeder::class,
             TransactionGroupeSeeder::class,
             TransactionHeadSeeder::class,
@@ -46,8 +46,8 @@ class DatabaseSeeder extends Seeder
             // Client Side Setup Seeder
             StoreSeeder::class,
             TransactionWithSeeder::class,
-            DepartmentSeeder::class,
-            DesignationSeeder::class,
+            // DepartmentSeeder::class,
+            // DesignationSeeder::class,
             
             ClientInfoSeeder::class,
             SupplierInfoSeeder::class,

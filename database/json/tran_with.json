@@ -1,7 +1,5 @@
 [
     { "tran_with_name": "Regular Employee",                 "user_role": "3",        "tran_type":"3",    "tran_method":"Both" },
     { "tran_with_name": "General Client",                   "user_role": "4",        "tran_type":"1",    "tran_method":"Receive" },
-    { "tran_with_name": "General Supplier",                 "user_role": "5",        "tran_type":"1",    "tran_method":"Payment" },
-    { "tran_with_name": "Sales Representative",             "user_role": "3",        "tran_type":"3",    "tran_method":"Both" },
-    { "tran_with_name": "Marketing Head",                   "user_role": "3",        "tran_type":"3",    "tran_method":"Both" }
+    { "tran_with_name": "General Supplier",                 "user_role": "5",        "tran_type":"1",    "tran_method":"Payment" }
 ]

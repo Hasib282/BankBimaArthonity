@@ -1,15 +1,7 @@
 [
-    { "name": "Accounts" },
     { "name": "Administration" },
-    { "name": "Editor" },
-    { "name": "Finance" },
     { "name": "Human Resources" },
-    { "name": "IT" },
     { "name": "Marketing" },
-    { "name": "Manager" },
-    { "name": "Clerk" },
-    { "name": "Public Relations" },
-    { "name": "Reporter" },
-    { "name": "Sales" },
-    { "name": "Worker" }
+    { "name": "Accounts" },
+    { "name": "IT" }
 ]
