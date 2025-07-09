@@ -2,12 +2,5 @@
     { "tran_groupe_name": "Salary",                 "tran_groupe_type":"3", "tran_method":"Both" },
     { "tran_groupe_name": "Party Payments",         "tran_groupe_type":"2", "tran_method":"Both" },
     { "tran_groupe_name": "Deposit To Bank",        "tran_groupe_type":"4", "tran_method":"Payment" },
-    { "tran_groupe_name": "Withdraw From Bank",     "tran_groupe_type":"4", "tran_method":"Receive" },
-    { "tran_groupe_name": "Hospital Deposits",      "tran_groupe_type":"7", "tran_method":"Both" },
-    { "tran_groupe_name": "Medicine",               "tran_groupe_type":"6", "tran_method":"Both" },
-    { "tran_groupe_name": "Bed Charge",             "tran_groupe_type":"7", "tran_method":"Payment" },
-    { "tran_groupe_name": "Bed Charge",             "tran_groupe_type":"8", "tran_method":"Payment" },
-    { "tran_groupe_name": "Hotel Deposits",         "tran_groupe_type":"8", "tran_method":"Both" },
-    { "tran_groupe_name": "Hospital Bills",         "tran_groupe_type":"7", "tran_method":"Receive" },
-    { "tran_groupe_name": "Hotel Bills",            "tran_groupe_type":"8", "tran_method":"Receive" }
+    { "tran_groupe_name": "Withdraw From Bank",     "tran_groupe_type":"4", "tran_method":"Receive" }
 ]
