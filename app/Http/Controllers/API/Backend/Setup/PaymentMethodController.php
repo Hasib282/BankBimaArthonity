@@ -12,7 +12,7 @@ class PaymentMethodController extends Controller
 {
     // Show All Payment Method
     public function Show(Request $req){
-        $data = Payment_Method::on('mysql')->get();
+        $data = Payment_Method::on('mysql_second')->get();
         return response()->json([
             'status'=> true,
             'data' => $data,
@@ -24,14 +24,14 @@ class PaymentMethodController extends Controller
     // Insert Payment Method
     public function Insert(Request $req){
         $req->validate([
-            "name" => 'required|unique:mysql.payment__methods,name',
+            "name" => 'required|unique:mysql_second.payment__methods,name',
         ]);
 
-        $insert = Payment_Method::on('mysql')->create([
+        $insert = Payment_Method::on('mysql_second')->create([
             "name" => $req->name,
         ]);
 
-        $data = Payment_Method::on('mysql')->findOrFail($insert->id);
+        $data = Payment_Method::on('mysql_second')->findOrFail($insert->id);
         
         return response()->json([
             'status'=> true,
@@ -44,10 +44,10 @@ class PaymentMethodController extends Controller
 
     // Update Payment Method
     public function Update(Request $req){
-        $data = Payment_Method::on('mysql')->findOrFail($req->id);
+        $data = Payment_Method::on('mysql_second')->findOrFail($req->id);
         
         $req->validate([
-            "name" => ['required',Rule::unique('mysql.payment__methods', 'name')->ignore($data->id)],
+            "name" => ['required',Rule::unique('mysql_second.payment__methods', 'name')->ignore($data->id)],
         ]);
 
         $update = $data->update([
@@ -55,7 +55,7 @@ class PaymentMethodController extends Controller
             "updated_at" => now()
         ]);
 
-        $updatedData = Payment_Method::on('mysql')->findOrFail($req->id);
+        $updatedData = Payment_Method::on('mysql_second')->findOrFail($req->id);
 
         if($update){
             return response()->json([
@@ -70,21 +70,21 @@ class PaymentMethodController extends Controller
 
     // Delete Payment Method
     public function Delete(Request $req){
-        Payment_Method::on('mysql')->findOrFail($req->id)->delete();
+        Payment_Method::on('mysql_second')->findOrFail($req->id)->delete();
         return response()->json([
             'status'=> true,
             'message' => 'MainHead Deleted Successfully',
-        ], 200); 
+        ], 200);
     } // End Method
 
 
 
     // Delete Payment Method Status
     public function DeleteStatus(Request $req){
-        $data = Payment_Method::on('mysql')->findOrFail($req->id);
+        $data = Payment_Method::on('mysql_second')->findOrFail($req->id);
         $data->update(['status' => $data->status == 0 ? 1 : 0]);
         
-        $updatedData = Payment_Method::on('mysql')->findOrFail($req->id);
+        $updatedData = Payment_Method::on('mysql_second')->findOrFail($req->id);
         
         return response()->json([
             'status'=> true,
@@ -97,7 +97,7 @@ class PaymentMethodController extends Controller
 
     // Get Transaction Main Head
     public function Get(){
-        $data = Payment_Method::on('mysql')->select('id','name')->get();
+        $data = Payment_Method::on('mysql_second')->select('id','name')->get();
         return response()->json([
             'status' => true,
             'data'=> $data,

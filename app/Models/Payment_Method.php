@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Payment_Method extends Model
 {
     
-    protected $connection = 'mysql';
+    protected $connection = 'mysql_second';
 
     protected $guarded = [];
     
