@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Models\Company_Type;
 use App\Models\Company_Details;
 use App\Models\Permission_Company;
+use App\Models\Permission_Company_Type;
 use App\Models\Permission_Head;
 
 class CompanyPermissionController extends Controller
@@ -30,20 +31,107 @@ class CompanyPermissionController extends Controller
     public function Edit(Request $req){
         $company = Company_Details::on('mysql')->where('company_id',$req->id)->first();
         $companypermission = Permission_Company::on('mysql')->where('company_id', $req->id)->pluck('permission_id')->toArray();
-        $permissions = Permission_Head::on('mysql')->with('mainhead')
+        $companyTypePermission = Company_Type::on('mysql')->with('permissions')->where('id', $company->company_type)->first()->permissions->pluck('id')->toArray();
+
+        $permissions = Permission_Head::on('mysql')
+        ->with('mainhead')
+        ->whereIn('id', $companyTypePermission)
         ->orderBy('permission_mainhead')
         ->get()
         ->groupBy('permission_mainhead');
-        // ->groupBy(function ($item) {
-        //     return $item->mainhead->name;
-        // });
+
+        $groupedPermissions = [];
+
+        foreach ($permissions as $mainheadId => $group) {
+            foreach ($group as $permission) {
+                // dd($permission->name);
+                $name = $permission->name;
+                $groupKey = 'Other';
+
+                // Custom grouping logic
+                if (str_contains($name, ' Admin')) $groupKey = 'Admin';
+                elseif (str_contains($name, 'Roles')) $groupKey = 'Roles';
+                elseif (str_contains($name, 'Permissions')) $groupKey = 'Permissions';
+                elseif (str_contains($name, 'Banks')) $groupKey = 'Banks';
+                elseif (str_contains($name, 'Locations')) $groupKey = 'Locations';
+                elseif (str_contains($name, 'Stores')) $groupKey = 'Stores';
+                elseif (str_contains($name, 'Payment Methods')) $groupKey = 'Payment Methods';
+                elseif (str_contains($name, 'Corporate')) $groupKey = 'Corporate';
+
+                elseif (str_contains($name, 'Groupes')) $groupKey = 'Groupes';
+                elseif (str_contains($name, 'Service / Product')) $groupKey = 'Service / Product';
+                elseif (str_contains($name, 'Client/Supplier')) $groupKey = 'Client/Supplier';
+                elseif (str_contains($name, 'Clients')) $groupKey = 'Clients';
+                elseif (str_contains($name, 'Suppliers')) $groupKey = 'Suppliers';
+                elseif (str_contains($name, 'Transaction With Client')) $groupKey = 'Transaction With Client';
+                elseif (str_contains($name, 'Transaction With Supplier')) $groupKey = 'Transaction With Supplier';
+                elseif (str_contains($name, 'From Client')) $groupKey = 'From-Client';
+                elseif (str_contains($name, 'To Supplier')) $groupKey = 'To-Supplier';
+
+                elseif (str_contains($name, 'Bank Withdraw')) $groupKey = 'Bank-Withdraws';
+                elseif (str_contains($name, 'Bank Deposit')) $groupKey = 'Bank-Deposits';
+
+                elseif (str_contains($name, 'Employee Type')) $groupKey = 'Employee Type';
+                elseif (str_contains($name, 'All Employee')) $groupKey = 'All-Employee';
+                elseif (str_contains($name, 'Personal')) $groupKey = 'Employee-Personal-Details';
+                elseif (str_contains($name, 'Education')) $groupKey = 'Employee-Education-Details';
+                elseif (str_contains($name, 'Trainning')) $groupKey = 'Employee-Trainning-Details';
+                elseif (str_contains($name, 'Experience')) $groupKey = 'Employee-Experience-Details';
+                elseif (str_contains($name, 'Organization')) $groupKey = 'Employee-Organization-Details';
+                elseif (str_contains($name, 'Attandence')) $groupKey = 'Attendance';
+                elseif (str_contains($name, 'Payroll Setup')) $groupKey = 'Payroll-Setup';
+                elseif (str_contains($name, 'Middleware')) $groupKey = 'Payroll-Middleware';
+                elseif (str_contains($name, 'Process')) $groupKey = 'Payroll-Process';
+                elseif (str_contains($name, 'Department')) $groupKey = 'Department';
+                elseif (str_contains($name, 'Designation')) $groupKey = 'Designation';
+                elseif (str_contains($name, 'Salary') && str_contains($name, 'Report')) $groupKey = 'Salary-Report';
+
+                elseif (str_contains($name, 'Manufacturer')) $groupKey = 'Manufacturer';
+                elseif (str_contains($name, 'Category')) $groupKey = 'Category';
+                elseif (str_contains($name, 'Unit')) $groupKey = 'Unit';
+                elseif (str_contains($name, 'Form')) $groupKey = 'Form';
+                elseif (str_contains($name, 'Product')) $groupKey = 'Product';
+                elseif (str_contains($name, 'Purchase') && str_contains($name, 'Transaction')) $groupKey = 'Purchase-Transaction';
+                elseif (str_contains($name, 'Issue') && str_contains($name, 'Transaction')) $groupKey = 'Issue-Transaction';
+                elseif (str_contains($name, 'Client Return') && str_contains($name, 'Transaction')) $groupKey = 'Client-Return-Transaction';
+                elseif (str_contains($name, 'Supplier Return') && str_contains($name, 'Transaction')) $groupKey = 'Supplier-Return-Transaction';
+                elseif (str_contains($name, 'Positive')) $groupKey = 'Positive';
+                elseif (str_contains($name, 'Negative')) $groupKey = 'Negative';
+
+                
+
+                elseif (str_contains($name, 'Balance Sheet')) $groupKey = 'Balance-Sheet';
+                elseif (str_contains($name, 'Account Statement')) $groupKey = 'Account-Statement';
+                elseif (str_contains($name, 'Party Statement')) $groupKey = 'Party-Statement';
+
+                $groupedPermissions[$permission->mainhead->name.'-'.$permission->permission_mainhead ?? 'Uncategorized'][$groupKey][] = [
+                    'id' => $permission->id,
+                    'name' => $permission->name,
+                    'checked' => in_array($permission->id, $companypermission),
+                    'permission_mainhead' => $permission->permission_mainhead,
+                ];
+            }
+        }
         
         return response()->json([
             'status'=> true,
             'permissions'=>$permissions,
             'companypermission'=>$companypermission,
-            'company'=>$company
+            'company'=>$company,
+            'groupedPermissions'=>$groupedPermissions
         ], 200);
+
+
+
+
+
+        
+        // return response()->json([
+        //     'status'=> true,
+        //     'permissions'=>$permissions,
+        //     'companypermission'=>$companypermission,
+        //     'company'=>$company
+        // ], 200);
     } // End Method
 
 

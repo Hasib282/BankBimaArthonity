@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
+use Laravel\Sanctum\Sanctum;
+use App\Models\PersonalAccessToken;
+
 use App\Models\Login_User;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
+
         Gate::define('isSuperAdmin', function(Login_User $user) {
             return $user->user_role == 1;
         });
