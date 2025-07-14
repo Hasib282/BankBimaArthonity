@@ -15,13 +15,12 @@ class PaymentSummaryController extends Controller
         $data = Transaction_Main::on('mysql_second')
         ->with('User','Bank')
         ->select(
-            'tran_type',
             'tran_user',
             DB::raw('SUM(payment) as total_payment'),
         )
         ->where('payment','>',0)
         ->whereRaw("DATE(tran_date) = ?", [date('Y-m-d')])
-        ->groupBy('tran_user','tran_type')
+        ->groupBy('tran_user')
         ->orderBy('tran_user')
         ->get();
         
@@ -38,14 +37,13 @@ class PaymentSummaryController extends Controller
         $data = Transaction_Main::on('mysql_second')
         ->with('User','Bank')
         ->select(
-            'tran_type',
             'tran_user',
             DB::raw('SUM(payment) as total_payment'),
         )
         ->where('payment','>',0)
         // ->where('tran_type', $req->type)
         ->whereRaw("DATE(tran_date) BETWEEN ? AND ?", [$req->startDate, $req->endDate])
-        ->groupBy('tran_user','tran_type')
+        ->groupBy('tran_user')
         ->orderBy('tran_user')
         ->get();
         
