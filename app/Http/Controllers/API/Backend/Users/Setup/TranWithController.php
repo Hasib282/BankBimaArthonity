@@ -14,7 +14,7 @@ class TranWithController extends Controller
     // Show All Tranwith
     public function Show(Request $req){
         $type = GetTranType($req->segment(2));
-
+        // dd($type);
         $tranwith = Transaction_With::on('mysql_second')
         ->with('Role','Type')
         ->when($type, function ($query) use ($type) { // when $type is not null

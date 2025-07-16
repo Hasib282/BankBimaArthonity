@@ -134,7 +134,7 @@ $(document).ready(function () {
 
     // Add Modal Open Functionality
     AddModalFunctionality("#date", function(){
-        GetTransactionWith('1', 'Payment', '#within');
+        GetTransactionWith('2', 'Payment', '#within');
         localStorage.removeItem('transactionData');
         $('.transaction_grid tbody').html('');
     });
@@ -183,7 +183,7 @@ $(document).ready(function () {
         $('#updateAmount').val('');
         $('#updateTotAmount').val('');
         $('#dId').val('');
-        GetTransactionWith('1', 'Payment', '#within');
+        GetTransactionWith('2', 'Payment', '#within');
         localStorage.removeItem('transactionData');
         $('.transaction_grid tbody').html('');
 

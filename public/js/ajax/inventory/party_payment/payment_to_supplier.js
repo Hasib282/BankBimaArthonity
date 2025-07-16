@@ -94,7 +94,7 @@ $(document).ready(function () {
 
     // Add Modal Open Functionality
     AddModalFunctionality("#date", function(){
-        GetTransactionWith(5, 'Payment')
+        GetTransactionWith(2, 'Payment')
         $('.due-grid tbody').html('');
         $('.due-grid tfoot').html('');
     });
@@ -137,7 +137,7 @@ $(document).ready(function () {
 
     // Additional Edit Functionality
     function EditFormInputValue(item){
-        GetTransactionWith(5, 'Payment')
+        GetTransactionWith(2, 'Payment')
         $('.due-grid tbody').html('');
         $('.due-grid tfoot').html('');
 

@@ -141,7 +141,7 @@ $(document).ready(function () {
         $('#user').removeAttr('data-with');
         $('#product').removeAttr('data-id');
         $('#product').removeAttr('data-groupe');
-        GetTransactionWith(5, 'Receive', '#within');
+        GetTransactionWith(2, 'Receive', '#within');
         localStorage.removeItem('transactionData');
         $('.transaction_grid tbody').html('');
         $('#batch-details-list tbody').html('');

@@ -39,8 +39,6 @@ use App\Http\Controllers\Frontend\HR\HrReportController;
 // Inventory Controllers
 use App\Http\Controllers\Frontend\Inventory\InventorySetupController;
 use App\Http\Controllers\Frontend\Inventory\InventoryTransactionsController;
-use App\Http\Controllers\Frontend\Inventory\InventoryReturnController;
-use App\Http\Controllers\Frontend\Inventory\InventoryAdjustmentController;
 use App\Http\Controllers\Frontend\Inventory\InventoryReportController;
 
 
@@ -114,6 +112,24 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
                 ///////////// --------------- Super Admin Routes ----------- ///////////////////
                 Route::get('/superadmins', 'ShowSuperAdmins')->name('show.superAdmins');
+
+
+
+                Route::controller(AdminSetupController::class)->group(function () {
+                    // *************************************** Transaction User Type Routes Start *************************************** //
+                    Route::get('/usertype', 'ShowTranWith')->name('show.tranUserType');
+                });
+
+
+                Route::controller(UsersController::class)->group(function () {
+                    ///////////// --------------- Client Routes ----------- ///////////////////
+                    Route::get('/clients', 'ShowClients')->name('show.clients');
+
+
+
+                    ///////////// --------------- Supplire Routes ----------- ///////////////////
+                    Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
+                });
             }); // End Users Controller
         }); // End User Route
 
@@ -185,11 +201,6 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
             // *************************************** Main Heads Routes Start *************************************** //
             Route::get('/mainheads', 'ShowTransactionMainHead')->name('show.mainhead');
-
-
-
-            // *************************************** Corporate Routes Start *************************************** //
-            Route::get('/corporate', 'ShowCorporate')->name('show.corporate');
             
 
 
@@ -226,26 +237,6 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
                 // *************************************** TranHead Routes Start *************************************** //
                 Route::get('/heads', 'ShowTransactionHeads')->name('show.tranHeads');
             }); // End Admin Setup Controller
-        });
-
-
-
-        Route::prefix('/users')->group(function () {
-            Route::controller(AdminSetupController::class)->group(function () {
-                // *************************************** Transaction User Type Routes Start *************************************** //
-                Route::get('/usertype', 'ShowTranWith')->name('show.tranUserType');
-            });
-
-
-            Route::controller(UsersController::class)->group(function () {
-                ///////////// --------------- Client Routes ----------- ///////////////////
-                Route::get('/clients', 'ShowClients')->name('show.clients');
-
-
-
-                ///////////// --------------- Supplire Routes ----------- ///////////////////
-                Route::get('/suppliers', 'ShowSuppliers')->name('show.suppliers');
-            });
         });
 
 
@@ -450,26 +441,6 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
 
 
-        Route::prefix('/users')->group(function () {
-            Route::controller(AdminSetupController::class)->group(function () {
-                // *************************************** Inventory User Type Routes Start *************************************** //
-                Route::get('/usertype', 'ShowTranWith')->name('show.invUserType');
-            });
-
-
-            Route::controller(UsersController::class)->group(function () {
-                ///////////// --------------- Client Routes ----------- ///////////////////
-                Route::get('/clients', 'ShowClients')->name('show.invClients');
-
-
-
-                ///////////// --------------- Supplire Routes ----------- ///////////////////
-                Route::get('/suppliers', 'ShowSuppliers')->name('show.invSuppliers');
-            });
-        });
-
-
-
         // *************************************** Inventory Transaction Routes Start *************************************** //
         Route::prefix('/transaction')->group(function () {
             Route::controller(InventoryTransactionsController::class)->group(function(){
@@ -482,48 +453,8 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
                 ///////////// --------------- Inventory Issue Routes ----------- ///////////////////
                 // Inventory Issue Crude Routes
                 Route::get('/issue', 'ShowInventoryIssue')->name('show.invIssue');
-            }); // End InventoryTransactionController 
-
-
-
-            ///////////// --------------- Inventory Return Routes ----------- ///////////////////
-            Route::prefix('/return')->group(function () {
-                Route::controller(InventoryReturnController::class)->group(function () {
-                    // *************** Inventory Client Return Routes *************** //
-                    Route::get('/client', 'ShowClientReturn')->name('show.invClientReturn');
-
-
-
-                    // *************** Inventory Supplier Return Routes *************** //
-                    Route::get('/supplier', 'ShowSupplierReturn')->name('show.invSupplierReturn');
-                }); // End Inventory Return Controller 
-            }); // End Inventory Return Routes
+            }); // End InventoryTransactionController
         }); // End Inventory Transaction Routes 
-
-
-
-        // *************************************** Inventory Adjustment Routes Start *************************************** //
-        Route::prefix('/adjustment')->group(function () {
-            Route::controller(InventoryAdjustmentController::class)->group(function () {
-                ///////////// --------------- Inventory Positive Adjustment Routes ----------- ///////////////////
-                Route::get('/positive', 'ShowPositiveAdjustment')->name('show.invPosAdjustment');
-
-
-
-                ///////////// --------------- Inventory Negative Adjustment Routes ----------- ///////////////////
-                Route::get('/negative', 'ShowNegativeAdjustment')->name('show.invNegAdjustment');
-            }); // End Inventory Adjustment Controller 
-        }); // End Inventory Adjustment Routes
-
-
-        // *************************************** Inventory Party Transaction Routes Start *************************************** //
-        Route::controller(PartyTransactionController::class)->group(function () {
-            Route::prefix('/party')->group(function () {
-                Route::get('/receive', 'ShowPartyReceive')->name('show.invPartyReceive');
-
-                Route::get('/payment', 'ShowPartyPayment')->name('show.invPartyPayment');
-            }); // End Party Transaction Routres
-        }); // End PartyTransactionController
 
 
 
@@ -609,7 +540,7 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
     /////-----/////-----/////-----/////-----/////-----///// Inventory Routes End /////-----/////-----/////-----/////-----/////-----/////
     
-    
+
     
     
 

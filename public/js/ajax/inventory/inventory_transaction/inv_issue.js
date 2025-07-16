@@ -134,7 +134,7 @@ $(document).ready(function () {
 
     // Add Modal Open Functionality
     AddModalFunctionality("#product", function(){
-        GetTransactionWith(5, 'Receive', '#within');
+        GetTransactionWith(2, 'Receive', '#within');
         $('#store').val(1)
         $('#user').val('General Customer')
         $('#user').attr('data-id', 'CL000000001')
@@ -189,7 +189,7 @@ $(document).ready(function () {
         $('#updateMrp').val('');
         $('#updateTotAmount').val('');
         $('#dId').val('');
-        GetTransactionWith(5, 'Receive', '#updatewithin');
+        GetTransactionWith(2, 'Receive', '#updatewithin');
         localStorage.removeItem('transactionData');
         $('.transaction_grid tbody').html('');
         

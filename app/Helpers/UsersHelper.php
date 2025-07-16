@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 if (!function_exists('GetTranType')) {
     function GetTranType($type) {
         $segments = [
+            'admin' => 2,
             'transaction' => 1,
             'hr' => 3,
             'inventory' => 5,

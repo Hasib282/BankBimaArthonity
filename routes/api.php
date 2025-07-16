@@ -60,10 +60,6 @@ use App\Http\Controllers\API\Backend\Setup\Permission\CompanyPermissionControlle
 use App\Http\Controllers\API\Backend\Setup\Permission\UserPermissionController;
 
 
-//Corporate Controller
-use App\Http\Controllers\API\Backend\Setup\CorporateController;
-
-
 // Admin Setup Controllers
 use App\Http\Controllers\API\Backend\Setup\StoreController;
 use App\Http\Controllers\API\Backend\Setup\PaymentMethodController;
@@ -93,9 +89,6 @@ use App\Http\Controllers\API\Backend\Transactions\BankTransactionController;
 use App\Http\Controllers\API\Backend\Transactions\PartyTransactionController;
 use App\Http\Controllers\API\Backend\Transactions\PurchaseController;
 use App\Http\Controllers\API\Backend\Transactions\IssueController;
-use App\Http\Controllers\API\Backend\Transactions\ClientReturnController;
-use App\Http\Controllers\API\Backend\Transactions\SupplierReturnController;
-use App\Http\Controllers\API\Backend\Transactions\AdjustmentController;
 use App\Http\Controllers\API\Backend\Transactions\PayrollProcessController;
 
 
@@ -232,6 +225,41 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::put('/admins', 'Update');
                 Route::delete('/admins', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
                 Route::delete('/admins/delete', 'DeleteStatus');
+            });
+
+
+
+            // *************************************** Transaction User Type Routes Start *************************************** //
+            Route::controller(TranWithController::class)->group(function () {
+                Route::get('/usertype', 'Show');
+                Route::post('/usertype', 'Insert');
+                Route::put('/usertype', 'Update');
+                Route::delete('/usertype', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+                Route::delete('/usertype/delete', 'DeleteStatus');
+            });
+
+
+
+            ///////////// --------------- Client Routes ----------- ///////////////////
+            Route::controller(ClientController::class)->group(function () {
+                Route::get('/clients', 'Show');
+                Route::post('/clients', 'Insert');
+                Route::put('/clients', 'Update');
+                Route::delete('/clients', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+                Route::delete('/clients/delete', 'DeleteStatus');
+                Route::get('/clients/details', 'Details');
+            });
+            
+            
+
+            ///////////// --------------- Supplier Routes ----------- ///////////////////
+            Route::controller(SupplierController::class)->group(function () {
+                Route::get('/suppliers', 'Show');
+                Route::post('/suppliers', 'Insert');
+                Route::put('/suppliers', 'Update');
+                Route::delete('/suppliers', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+                Route::delete('/suppliers/delete', 'DeleteStatus');
+                Route::get('/suppliers/details', 'Details');
             });
         }); // End User Routes
 
@@ -397,16 +425,6 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::get('/tranheads/get', 'Get')->withoutMiddleware([CheckPermission::class, SuperAdminAccess::class]);
             });
         });
-
-        // *************************************** corporate  Routes Start *************************************** //
-        Route::controller(CorporateController::class)->group(function () {
-            Route::get('/corporate', 'Show');
-            Route::post('/corporate', 'Insert');
-            Route::put('/corporate', 'Update');
-            Route::delete('/corporate', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-            Route::delete('/corporate/delete', 'DeleteStatus');
-            Route::get('/corporate/get', 'Get')->withoutMiddleware(CheckPermission::class);
-        });
     });
 
     /////-----/////-----/////-----/////-----/////-----///// Admin Setup Routes End /////-----/////-----/////-----/////-----/////-----/////
@@ -437,42 +455,6 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::put('/heads', 'Update');
                 Route::delete('/heads', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
                 Route::delete('/heads/delete', 'DeleteStatus');
-            });
-        });
-
-
-        Route::prefix('/users')->group(function () {
-            // *************************************** Transaction User Type Routes Start *************************************** //
-            Route::controller(TranWithController::class)->group(function () {
-                Route::get('/usertype', 'Show');
-                Route::post('/usertype', 'Insert');
-                Route::put('/usertype', 'Update');
-                Route::delete('/usertype', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/usertype/delete', 'DeleteStatus');
-            });
-
-
-
-            ///////////// --------------- Client Routes ----------- ///////////////////
-            Route::controller(ClientController::class)->group(function () {
-                Route::get('/clients', 'Show');
-                Route::post('/clients', 'Insert');
-                Route::put('/clients', 'Update');
-                Route::delete('/clients', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/clients/delete', 'DeleteStatus');
-                Route::get('/clients/details', 'Details');
-            });
-            
-            
-
-            ///////////// --------------- Supplier Routes ----------- ///////////////////
-            Route::controller(SupplierController::class)->group(function () {
-                Route::get('/suppliers', 'Show');
-                Route::post('/suppliers', 'Insert');
-                Route::put('/suppliers', 'Update');
-                Route::delete('/suppliers', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/suppliers/delete', 'DeleteStatus');
-                Route::get('/suppliers/details', 'Details');
             });
         });
 
@@ -855,44 +837,6 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
 
 
 
-
-        Route::prefix('/users')->group(function () {
-            // *************************************** Transaction User Type Routes Start *************************************** //
-            Route::controller(TranWithController::class)->group(function () {
-                Route::get('/usertype', 'Show');
-                Route::post('/usertype', 'Insert');
-                Route::put('/usertype', 'Update');
-                Route::delete('/usertype', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/usertype/delete', 'DeleteStatus');
-            });
-
-
-
-            ///////////// --------------- Client Routes ----------- ///////////////////
-            Route::controller(ClientController::class)->group(function () {
-                Route::get('/clients', 'Show');
-                Route::post('/clients', 'Insert');
-                Route::put('/clients', 'Update');
-                Route::delete('/clients', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/clients/delete', 'DeleteStatus');
-                Route::get('/clients/details', 'Details');
-            });
-            
-            
-
-            ///////////// --------------- Supplier Routes ----------- ///////////////////
-            Route::controller(SupplierController::class)->group(function () {
-                Route::get('/suppliers', 'Show');
-                Route::post('/suppliers', 'Insert');
-                Route::put('/suppliers', 'Update');
-                Route::delete('/suppliers', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/suppliers/delete', 'DeleteStatus');
-                Route::get('/suppliers/details', 'Details');
-            });
-        });
-
-
-
         // *************************************** Inventory Transaction Routes Start *************************************** //
         Route::prefix('/transaction')->group(function () {
             ///////////// --------------- Inventory Purchase Routes ----------- ///////////////////
@@ -919,90 +863,7 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::delete('/issue/delete', 'DeleteStatus');
                 Route::get('/issue/search', 'Search');
             });
-
-
-            
-            ///////////// --------------- Inventory Return Routes ----------- ///////////////////
-            Route::prefix('/return')->group(function () {
-                // *************** Inventory Supplier Return Routes *************** //
-                Route::controller(SupplierReturnController::class)->group(function () {
-                    Route::get('/supplier', 'Show');
-                    Route::post('/supplier', 'Insert');
-                    // Route::get('/supplier/edit', 'Edit');
-                    // Route::put('/supplier', 'Update');
-                    Route::delete('/supplier', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                    Route::delete('/supplier/delete', 'DeleteStatus');
-                    Route::get('/supplier/search', 'Search');
-                });
-                
-                
-                
-                // *************** Inventory Client Return Routes *************** //
-                Route::controller(ClientReturnController::class)->group(function () {
-                    Route::get('/client', 'Show');
-                    Route::post('/client', 'Insert');
-                    // Route::get('/client/edit', 'Edit');
-                    // Route::put('/client', 'Update');
-                    Route::delete('/client', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                    Route::delete('/client/delete', 'DeleteStatus');
-                    Route::get('/client/search', 'Search');
-                });
-            }); // End Inventory Transaction Return Routes
         }); // End Inventory Transaction Routes
-
-
-
-        // *************************************** Inventory Adjustment Routes Start *************************************** //
-        Route::prefix('/adjustment')->group(function () {
-            Route::controller(AdjustmentController::class)->group(function () {
-                ///////////// --------------- Inventory Positive Adjustment Routes ----------- ///////////////////
-                Route::get('/positive', 'Show');
-                Route::post('/positive', 'Insert');
-                Route::get('/positive/edit', 'Edit');
-                Route::put('/positive', 'Update');
-                Route::delete('/positive', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/positive/delete', 'DeleteStatus');
-                Route::get('/positive/search', 'Search');
-
-
-
-                ///////////// --------------- Inventory Negative Adjustment Routes ----------- ///////////////////
-                Route::get('/negative', 'Show');
-                Route::post('/negative', 'Insert');
-                Route::get('/negative/edit', 'Edit');
-                Route::put('/negative', 'Update');
-                Route::delete('/negative', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                Route::delete('/negative/delete', 'DeleteStatus');
-                Route::get('/negative/search', 'Search');
-            });
-        }); // End Inventory Adjustment Routes
-
-
-
-        // *************************************** Party Transaction Routes Start *************************************** //
-        Route::controller(PartyTransactionController::class)->group(function () {
-            Route::prefix('/party')->group(function () {
-                ///////////// --------------- Receive From Client Routes ----------- ///////////////////
-                Route::get('/receive', 'Show');
-                Route::post('/receive', 'Insert');
-                // Route::put('/receive', 'Update');
-                // Route::delete('/receive', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                // Route::delete('/receive/delete', 'DeleteStatus');
-                Route::get('/receive/search', 'Search');
-
-
-                ///////////// --------------- Payment To Supplier Routes ----------- ///////////////////
-                Route::get('/payment', 'Show');
-                Route::post('/payment', 'Insert');
-                // Route::put('/payment', 'Update');
-                // Route::delete('/payment', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
-                // Route::delete('/payment/delete', 'DeleteStatus');
-                Route::get('/payment/search', 'Search');
-
-                // Common Routes
-                Route::get('/get/due', 'GetDueList')->withoutMiddleware(CheckPermission::class);
-            });
-        }); // End PartyTransactionController
 
 
 
