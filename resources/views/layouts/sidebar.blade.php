@@ -1133,7 +1133,6 @@
 
 
                     {{-- Payment statement part start --}}
-
                     <li class="sub-menu-item">
                         <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'payment') ? 'active':''}}">
                             <p>
@@ -1190,8 +1189,7 @@
 
 
 
-                     {{-- Consolidated statement part start --}}
-
+                    {{-- Consolidated statement part start --}}
                     <li class="sub-menu-item">
                         <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'consolidated') ? 'active':''}}">
                             <p>
@@ -1245,7 +1243,62 @@
                             @endif
                         </ul>
                     </li>
-                </ul>
+                    
+                    
+                    {{-- Due statement part start --}}
+                    <li class="sub-menu-item">
+                        <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due') ? 'active':''}}">
+                            <p>
+                                <i class="fa-solid fa-file-invoice-dollar"></i>
+                                Due Statement
+                            </p>
+                            <i class="fas fa-angle-right {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due') ? 'rotate':''}}"></i>
+                        </div>
+                        <ul class="sub-menu1 {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due') ? 'show':''}}">
+                            @if(auth()->user()->hasPermission(422))
+                                <li class="sub-menu1-item" data-url="{{ route('show.dueDetails') }}">
+                                    <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due' && Request::segment(3) == 'details') ? 'active':''}}">
+                                        <p>
+                                            <i class="fa-solid fa-file-invoice"></i>
+                                            Details
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
+                                
+                            @if(auth()->user()->hasPermission(423))
+                                <li class="sub-menu1-item" data-url="{{ route('show.dueSummary') }}">
+                                    <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due' && Request::segment(3) == 'summary') ? 'active':''}}">
+                                        <p>
+                                            <i class="fa-solid fa-file-invoice"></i>
+                                            Summary
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
+                            @if(auth()->user()->hasPermission(424))
+                                <li class="sub-menu1-item" data-url="{{ route('show.dueInvoiceDetails') }}">
+                                    <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due' && Request::segment(3) == 'invoice_details') ? 'active':''}}">
+                                        <p>
+                                            <i class="fa-solid fa-file-invoice"></i>
+                                            Details (Invoice)
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
+                                
+                            @if(auth()->user()->hasPermission(425))
+                                <li class="sub-menu1-item" data-url="{{ route('show.dueInvoiceSummary') }}">
+                                    <div class="menu-title {{ (Request::segment(1) == 'report' && Request::segment(2) == 'due' && Request::segment(3) == 'invoice_summary') ? 'active':''}}">
+                                        <p>
+                                            <i class="fa-solid fa-file-invoice"></i>
+                                            Summary (Invoice)
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
                 </ul>
             </li>
         @endif

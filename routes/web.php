@@ -48,6 +48,7 @@ use App\Http\Controllers\Frontend\Report\PartyStatementController;
 use App\Http\Controllers\Frontend\Report\ConsolidatedStatementController;
 use App\Http\Controllers\Frontend\Report\PaymentStatementController;
 use App\Http\Controllers\Frontend\Report\CollectionStatementController;
+use App\Http\Controllers\Frontend\Report\DueStatementController;
 
 
 /*
@@ -653,7 +654,32 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
                 ///////////// --------------- Collection Invoice Detail Statement Routes ----------- ///////////////////
                 Route::get('/invoice_details', 'CollectionInvoiceDetails')->name('show.collectionInvoiceDetails');
             });
-        }); // End Party Statement Routes
+        }); // End Collection Statement Routes
+        
+        
+        
+        // *************************************** Due Statement Routes Start *************************************** //
+        Route::prefix('/due')->group(function () {
+            Route::controller(DueStatementController::class)->group(function () {
+                ///////////// --------------- Due Summary Statement Routes ----------- ///////////////////
+                Route::get('/summary', 'DueSummary')->name('show.dueSummary');
+            
+            
+            
+                ///////////// --------------- Due Detail Statement Routes ----------- ///////////////////
+                Route::get('/details', 'DueDetails')->name('show.dueDetails');
+                
+                
+                
+                ///////////// --------------- Due Invoice Summary Statement Routes ----------- ///////////////////
+                Route::get('/invoice_summary', 'DueInvoiceSummary')->name('show.dueInvoiceSummary');
+            
+            
+            
+                ///////////// --------------- Due Invoice Detail Statement Routes ----------- ///////////////////
+                Route::get('/invoice_details', 'DueInvoiceDetails')->name('show.dueInvoiceDetails');
+            });
+        }); // End Due Statement Routes
     }); // End Report Routes 
     
     /////-----/////-----/////-----/////-----/////-----///// Report Routes End /////-----/////-----/////-----/////-----/////-----/////

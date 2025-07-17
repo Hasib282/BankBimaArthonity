@@ -131,6 +131,13 @@ use App\Http\Controllers\API\Backend\Reports\Consolidated_Statement\Consolidated
 use App\Http\Controllers\API\Backend\Reports\Consolidated_Statement\ConsolidatedInvoiceSummaryController;
 
 
+// Report Due Statement Controllers
+use App\Http\Controllers\API\Backend\Reports\Due_Statement\DueDetailsController;
+use App\Http\Controllers\API\Backend\Reports\Due_Statement\DueSummaryController;
+use App\Http\Controllers\API\Backend\Reports\Due_Statement\DueInvoiceDetailsController;
+use App\Http\Controllers\API\Backend\Reports\Due_Statement\DueInvoiceSummaryController;
+
+
 // Product Report Controllers
 use App\Http\Controllers\API\Backend\Reports\ItemFlowStatementController;
 use App\Http\Controllers\API\Backend\Reports\Purchase_Statement\PurchaseDetailController;
@@ -1150,6 +1157,43 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::get('/invoice_details/search', 'Search');
             });
         }); // End Consolidated Statement Routes
+        
+        
+
+
+        
+        // *************************************** Due Statement Routes Start *************************************** //
+        Route::prefix('/due')->group(function () {
+            ///////////// --------------- Due Summary Statement Routes ----------- ///////////////////
+            Route::controller(DueSummaryController::class)->group(function () {
+                Route::get('/summary', 'Show');
+                Route::get('/summary/search', 'Search');
+            });
+            
+            
+            
+            ///////////// --------------- Due Detail Statement Routes ----------- ///////////////////
+            Route::controller(DueDetailsController::class)->group(function () {
+                Route::get('/details', 'Show');
+                Route::get('/details/search', 'Search');
+            });
+            
+            
+            
+            ///////////// --------------- Due Invoice Summary Statement Routes ----------- ///////////////////
+            Route::controller(DueInvoiceSummaryController::class)->group(function () {
+                Route::get('/invoice_summary', 'Show');
+                Route::get('/invoice_summary/search', 'Search');
+            });
+            
+            
+            
+            ///////////// --------------- Due Invoice Detail Statement Routes ----------- ///////////////////
+            Route::controller(DueInvoiceDetailsController::class)->group(function () {
+                Route::get('/invoice_details', 'Show');
+                Route::get('/invoice_details/search', 'Search');
+            });
+        }); // End Due Statement Routes
     }); // End Report Routes 
     
     /////-----/////-----/////-----/////-----/////-----///// Report Routes End /////-----/////-----/////-----/////-----/////-----/////
