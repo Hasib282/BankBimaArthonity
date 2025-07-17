@@ -41,6 +41,12 @@ use App\Http\Controllers\Frontend\Inventory\InventorySetupController;
 use App\Http\Controllers\Frontend\Inventory\InventoryTransactionsController;
 use App\Http\Controllers\Frontend\Inventory\InventoryReportController;
 
+//Reporter Portal controller
+
+use App\Http\Controllers\Frontend\Reporter_Portal\ReporterPortalController;
+
+
+
 
 // Report Controllers
 use App\Http\Controllers\Frontend\Report\AccountStatementController;
@@ -542,8 +548,14 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
     /////-----/////-----/////-----/////-----/////-----///// Inventory Routes End /////-----/////-----/////-----/////-----/////-----/////
     
 
+    // ***************************************Reporter portal Routes Start *************************************** //
+    Route::controller(ReporterPortalController::class)->group(function () {
+        ///////////// --------------- Reporter portal Routes ----------- ///////////////////
+        Route::get('/reporter', 'ShowReporterPortal')->name('show.reporter');
+
+    });
     
-    
+    // ***************************************Reporter portal Routes end *************************************** //
 
     /////-----/////-----/////-----/////-----/////-----///// Report Routes Start /////-----/////-----/////-----/////-----/////-----/////
     
