@@ -49,6 +49,7 @@
                                 <span class="error" id="update_head_error"></span>
                             </div>
                         </div>
+                       
                         {{-- quantity --}}
                         <div class="c-4">
                             <div class="form-input-group">
@@ -133,6 +134,25 @@
                                             value="0" readonly style="text-align: right;"></td>
                                 </tr>
                             </table>
+                        </div>
+                        {{--PaymentMethod --}}
+                        <div class="c-12">
+                            <div class="form-input-group">
+                                <label for="payment_method">Payment Method<span class="required" title="Required">*</span></label>
+                                <select name="payment_method" id="payment_method">
+                                    {{-- options will be display dynamically --}}
+                                </select>
+                                <span class="error" id="payment_method_error"></span>
+                            </div>
+                        </div>
+                        {{--note--}}
+                        <div class="c-12">
+                            <div class="form-input-group">
+                                <label for="note">Note</label>
+                                <textarea  name="note" id="note" class="form-input" cols="30" rows="10" autocomplete="off"></textarea><hr>
+                                <div id="note-list"></div>
+                                <span class="error" id="note_error"></span>
+                            </div>
                         </div>
                         <div class="center">
                             <span class="error" id="update_discount_error"></span>
