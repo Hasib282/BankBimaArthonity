@@ -207,4 +207,10 @@ $(document).ready(function () {
         
         $("#updateHead").focus();
     }
+
+    // Get Company Type
+    GetSelectInputList('admin/payment_method/get', function (res) {
+        CreateSelectOptions('#payment_method', 'Select Payment Method', res.data, 'name');
+        CreateSelectOptions('#updatePayment_method', 'Select Payment Method', res.data, 'name');
+    })
 });
