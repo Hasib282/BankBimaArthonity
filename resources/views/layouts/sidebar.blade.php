@@ -622,7 +622,7 @@
         @endif
         
         
-        <!-- Inventory Menu Start -->
+        <!-- Reporter Menu Start show.reporter -->
         @if(auth()->user()->hasPermissionMainHead('6'))
             <li class="menu-item">
                 <div class="menu-title {{ Request::segment(1) == 'inventory' ? 'active':''}}">
@@ -944,7 +944,19 @@
             <hr>
         @endif
 
+        @if(auth()->user()->hasPermissionMainHead('6'))
+        <li class="menu-item" data-url="{{route('show.reporter')}}">
+          
+                <div class="menu-title {{ Request::segment(1) == 'reporter' ? 'active':''}}">
+                    <p>
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                        Reporter Portal
+                    </p>
+                    <i class="fas fa-angle-right {{ Request::segment(1) == 'reporter' ? 'rotate':''}}"></i>
+                </div>
+        </li>
 
+        @endif
 
         {{-- Reports and Querrys  --}}
         @if(auth()->user()->hasPermission(41) || auth()->user()->hasPermission(45))

@@ -75,6 +75,11 @@ use App\Http\Controllers\API\Backend\Setup\Products\TranHeadController;
 use App\Http\Controllers\API\Backend\Setup\Products\ProductsController;
 
 
+//Reporter Portal   controller
+
+use App\Http\Controllers\API\Backend\Setup\ReporterPortalController;
+
+
 // HR Setup Payroll Controllers
 use App\Http\Controllers\API\Backend\Setup\Payroll\PayrollSetupController;
 use App\Http\Controllers\API\Backend\Setup\Payroll\PayrollMiddlewireController;
@@ -986,6 +991,22 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
     }); // End Inventory Routes
 
     /////-----/////-----/////-----/////-----/////-----///// Inventory Routes End /////-----/////-----/////-----/////-----/////-----/////
+
+     /////-----/////-----/////-----/////-----/////-----///// Reporter Portal Routes End /////-----/////-----/////-----/////-----/////-----/////
+
+    ///////////// --------------- Reporter Route Routes ----------- ///////////////////
+    Route::prefix('/reporter')->group(function () {
+        Route::controller(ReporterPortalController::class)->group(function () {
+            Route::get('/', 'Show');
+            Route::post('/', 'Insert');
+            Route::put('/', 'Update');
+            Route::delete('/', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+            Route::delete('/delete', 'DeleteStatus');
+            Route::get('/get',  'Get')->withoutMiddleware(CheckPermission::class);
+        });
+    });
+
+    /////-----/////-----/////-----/////-----/////-----///// Reporter Portal Routes End /////-----/////-----/////-----/////-----/////-----/////
     
     
 
@@ -1161,7 +1182,6 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
 
 Route::middleware(['web'])->group(function () {
     Route::get('/get/invoice', [GeneralTransactionController::class, 'Invoice']);
-    Route::get('/get/clearence', [HotelBookingController::class, 'Invoice']);
 
     Route::get('/hr/report/salary/summary/print', [SalarySummaryController::class, 'Print']);
     Route::get('/hr/report/salary/details/print', [SalaryDetailController::class, 'Print']);
