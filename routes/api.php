@@ -83,6 +83,7 @@ use App\Http\Controllers\API\Backend\Setup\ReporterPortalController;
 // HR Setup Payroll Controllers
 use App\Http\Controllers\API\Backend\Setup\Payroll\PayrollSetupController;
 use App\Http\Controllers\API\Backend\Setup\Payroll\PayrollMiddlewireController;
+use App\Http\Controllers\API\Backend\Setup\Payroll\AdvanceSalaryController;
 
 
 
@@ -728,6 +729,17 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
                 Route::put('/middlewire', 'Update');
                 Route::delete('/middlewire', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
                 Route::delete('/middlewire/delete', 'DeleteStatus');
+            });
+
+
+
+            ///////////// --------------- Advance Salary Routes ----------- ///////////////////
+            Route::controller(AdvanceSalaryController::class)->group(function () {
+                Route::get('/advance', 'Show');
+                Route::post('/advance', 'Insert');
+                Route::put('/advance', 'Update');
+                Route::delete('/advance', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+                Route::delete('/advance/delete', 'DeleteStatus');
             });
 
 

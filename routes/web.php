@@ -371,6 +371,11 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
                 ///////////// --------------- Payroll Middlewire Routes ----------- ///////////////////
                 Route::get('/middlewire','ShowPayrollMiddlewire')->name('show.payrollMiddlewire');
+
+
+
+                ///////////// --------------- Advance Salary Routes ----------- ///////////////////
+                Route::get('/advance','ShowAdvanceSalary')->name('show.advanceSalary');
                 
                 
                 

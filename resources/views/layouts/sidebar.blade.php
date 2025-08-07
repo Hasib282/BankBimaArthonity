@@ -570,6 +570,17 @@
                                     </div>
                                 </li>
                             @endif
+                            
+                            @if(auth()->user()->hasPermission(104))
+                                <li class="sub-menu1-item" data-url="{{route('show.advanceSalary')}}">
+                                    <div class="menu-title {{ (Request::segment(1) == 'hr' && Request::segment(2) == 'payroll' && Request::segment(3) == 'advance') ? 'active':''}}">
+                                        <p>
+                                            <i class="far fa-circle nav-icon"></i>
+                                            Advance Salary
+                                        </p>
+                                    </div>
+                                </li>
+                            @endif
                                 
                             @if(auth()->user()->hasPermission(108))
                                 <li class="sub-menu1-item" data-url="{{route('show.payroll')}}">

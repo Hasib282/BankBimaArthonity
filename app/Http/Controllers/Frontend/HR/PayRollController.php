@@ -45,6 +45,22 @@ class PayRollController extends Controller
             return view('hr.payroll.payroll_middlewire.main', compact('name'));
         }
     } // End Method
+
+
+
+
+
+    /////////////// ----------------------- Advance Salary Part Start Here ------------------- ////////////////
+    // Show Advance Salary
+    public function ShowAdvanceSalary(Request $req){
+        $name = "Advance Salary";
+        if ($req->ajax()) {
+            return view('hr.payroll.advance_salary.ajaxBlade', compact('name'));
+        }
+        else{
+            return view('hr.payroll.advance_salary.main', compact('name'));
+        }
+    } // End Method
     
 
 

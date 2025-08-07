@@ -3,5 +3,7 @@
     { "tran_head_name": "Payment To Supplier",          "groupe_id":2,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 },
     { "tran_head_name": "Cash Deposit To Bank",         "groupe_id":3,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 },
     { "tran_head_name": "Cheque Deposit to Bank",       "groupe_id":3,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 },
-    { "tran_head_name": "Cash Withdraw from Bank",      "groupe_id":4,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 }
+    { "tran_head_name": "Cash Withdraw from Bank",      "groupe_id":4,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 },
+    { "tran_head_name": "Cheque Withdraw from Bank",      "groupe_id":4,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 },
+    { "tran_head_name": "Advance Salary",               "groupe_id":1,      "category_id":null,     "manufacturer_id":null,     "form_id":null,     "unit_id":1 }
 ]
