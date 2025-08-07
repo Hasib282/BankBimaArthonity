@@ -74,6 +74,10 @@ Route::get('/link', function(){
     Artisan::call('storage:link');
 });
 
+Route::get('/bankbima-invoice', function(){
+    return view('common_modals.bankbimaInvoice');
+});
+
 
 // Don't Give Access to this routes if user is not valid
 Route::middleware([ValidUser::class, CheckPermission::class])->group(function () {
