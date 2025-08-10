@@ -344,6 +344,19 @@
             </li>
             <hr>
         @endif
+
+<!-- Advertiser Info Menue -->
+         @if(auth()->user()->hasPermissionMainHead('6'))
+            <li class="menu-item" data-url="{{route('show.publish')}}">
+                <div class="menu-title {{ Request::segment(1) == 'reporter' ? 'active':''}}">
+                    <p>
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                        Advertisement Publish
+                    </p>
+                </div>
+            </li>
+            <hr>
+        @endif
         
         <!-- Transaction With Bank -->
         @if(auth()->user()->hasPermissionMainHead('3'))

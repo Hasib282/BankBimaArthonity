@@ -180,4 +180,17 @@ class AdminSetupController extends Controller
             return view('admin_setup.tran_head.main', compact('name'));
         }
     } // End Method
+
+
+      // Show Companies
+    public function ShowAdvertisementInfo(Request $req){
+        $name = "Advertisement Publish";
+        $js = "transaction/advertisement/advertisement_publish";
+        if ($req->ajax()) {
+            return view('transaction.advertisement_publish.ajaxBlade', compact('name', 'js'));
+        }
+        else{
+            return view('transaction.advertisement_publish.main', compact('name', 'js'));
+        }
+    } // End Method
 }

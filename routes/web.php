@@ -284,6 +284,15 @@ Route::middleware([ValidUser::class, CheckPermission::class])->group(function ()
 
     /////-----/////-----/////-----/////-----/////-----///// Transaction Controllers End /////-----/////-----/////-----/////-----/////-----/////
 
+    // *************************************** Bank Transaction Routes Start *************************************** //
+    Route::controller(AdminSetupController::class)->group(function () {
+        Route::prefix('/advertiser')->group(function () {
+            Route::get('/publish', 'ShowAdvertisementInfo')->name('show.publish');
+
+            
+        }); // End Bank Transaction Route
+    }); // End BankTransactionController
+
 
 
 
