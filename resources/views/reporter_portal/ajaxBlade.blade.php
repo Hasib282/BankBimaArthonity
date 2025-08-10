@@ -64,8 +64,15 @@
                     <button class="open-modal" data-modal-id="addModal" id="add"><i class="fa-solid fa-plus"></i> Add {{ $name }} </button>
                 @endif
         </div>
-        <div class="c-6">
-
+        <div class="c-3">
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" id="startDate" class="form-input"
+                value="{{ $startDateValue ? $startDateValue : date('Y-m-d') }}">
+        </div>
+        <div class="c-3">
+            <label for="endDate">End Date</label>
+            <input type="date" name="endDate" id="endDate" class="form-input"
+                value="{{ $endDateValue ? $endDateValue : date('Y-m-d') }}">
         </div>
         <div class="c-3" style="padding: 0;">
             <input type="text" id="globalSearch" placeholder="Search..." />

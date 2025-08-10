@@ -58,7 +58,7 @@ $(document).ready(function () {
 
     // Insert Ajax
     InsertAjax(
-        "inventory/adjustment/negative",
+        "/reporter",
         {
             product: { selector: "#product", attribute: "data-id" },
             groupe: { selector: "#product", attribute: "data-groupe" },
@@ -82,7 +82,7 @@ $(document).ready(function () {
 
     // Update Ajax
     UpdateAjax(
-        "inventory/adjustment/negative",
+        "/reporter",
         {
             product: { selector: "#updateProduct", attribute: "data-id" },
             groupe: { selector: "#updateProduct", attribute: "data-groupe" },
@@ -98,17 +98,13 @@ $(document).ready(function () {
     );
 
     // Delete Ajax
-    DeleteAjax("inventory/adjustment/negative");
+    DeleteAjax("/reporter");
 
     // Delete status bAjax
-    DeleteStatusAjax("inventory/adjustment/negative");
+    DeleteStatusAjax("/reporter");
 
     // Search By Date Ajax
-    SearchByDateAjax(
-        "inventory/adjustment/negative/seaarch",
-        ShowInventoryNegativeAdjustments,
-        { type: 5, method: "Negative" }
-    );
+    SearchByDateAjax("/reporter/seaarch",ShowReporterPortal,);
 
     // Additional Edit Functionality
     function EditFormInputValue(item) {
@@ -122,15 +118,4 @@ $(document).ready(function () {
         $("#updateCp").val(item.cp);
         $("#updateMrp").val(item.mrp);
     }
-
-    // Get Store
-    GetSelectInputList("admin/stores/get", function (res) {
-        CreateSelectOptions("#store", "Select Store", res.data, "store_name");
-        CreateSelectOptions(
-            "#updateStore",
-            "Select Store",
-            res.data,
-            "store_name"
-        );
-    });
 });
