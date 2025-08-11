@@ -3,11 +3,11 @@ function ShowReporterPortal(res) {
         tableId: "#data-table",
         data: res.data,
         tbody: [
-            "tran_id",
-            "head.tran_head_name",
-            "store.store_name",
-            "quantity",
-            { key: "tran_date", type: "date" },
+            "reporter_id",
+            "title",
+            "description",
+            "file_upload",
+            //{ key: "tran_date", type: "date" },
         ],
 
         actions: (row) => {
@@ -40,10 +40,10 @@ $(document).ready(function () {
     // Render The Table Heads
     renderTableHead([
         { label: "SL:", type: "rowsPerPage", options: [15, 30, 50, 100, 500] },
-        { label: " User Id", key: "tran_id" },
-        { label: "Title", key: "head.tran_head_name" },
-        { label: "Description", key: "store.store_name" },
-        { label: "Upload file" },
+        { label: " Reporter Id", key: "reporter_id" },
+        { label: "Title", key: "title" },
+        { label: "Description", key: "description" },
+        { label: "Upload file", key: "file_upload" },
         { label: "Action", type: "button" },
     ]);
 
@@ -57,70 +57,36 @@ $(document).ready(function () {
     AddModalFunctionality("#store");
 
     // Insert Ajax
-    InsertAjax(
-        "inventory/adjustment/negative",
-        {
-            product: { selector: "#product", attribute: "data-id" },
-            groupe: { selector: "#product", attribute: "data-groupe" },
-            company: { selector: "#company", attribute: "data-id" },
-            method: "Negative",
-            type: 5,
-        },
-        function () {
-            $("#store").focus();
-            $("#store").val("");
-            $("#store").removeAttr("data-id");
-            $("#product").val("");
-            $("#product").removeAttr("data-id");
-            $("#product").removeAttr("data-groupe");
-            $("#quantity").val("1");
-        }
-    );
+    InsertAjax("reporter",);
 
     //Edit Ajax
     EditAjax(EditFormInputValue);
 
     // Update Ajax
     UpdateAjax(
-        "inventory/adjustment/negative",
-        {
-            product: { selector: "#updateProduct", attribute: "data-id" },
-            groupe: { selector: "#updateProduct", attribute: "data-groupe" },
-            method: "Negative",
-            type: 5,
-        },
-        function () {
-            $("#updateProduct").val("");
-            $("#updateProduct").removeAttr("data-id");
-            $("#updateProduct").removeAttr("data-groupe");
-            $("#updateQuantity").val("1");
-        }
-    );
+        "reporter");
 
     // Delete Ajax
-    DeleteAjax("inventory/adjustment/negative");
+    DeleteAjax("reporter");
 
     // Delete status bAjax
-    DeleteStatusAjax("inventory/adjustment/negative");
+    DeleteStatusAjax("reporter");
 
     // Search By Date Ajax
     SearchByDateAjax(
-        "inventory/adjustment/negative/seaarch",
-        ShowInventoryNegativeAdjustments,
+        "reporter",
+        ShowReporterPortal,
         { type: 5, method: "Negative" }
     );
 
     // Additional Edit Functionality
     function EditFormInputValue(item) {
         $("#id").val(item.id);
-        $("#updateTranId").val(item.tran_id);
-        $("#updateStore").val(item.store_id);
-        $("#updateProduct").attr("data-groupe", item.tran_groupe_id);
-        $("#updateProduct").attr("data-id", item.tran_head_id);
-        $("#updateProduct").val(item.head.tran_head_name);
-        $("#updateQuantity").val(item.quantity);
-        $("#updateCp").val(item.cp);
-        $("#updateMrp").val(item.mrp);
+        $("#updateReporter_id").val(item.reporter_id);
+        $("#updateTitle").val(item.title);   
+        $("#updateDescription").val(item.description);
+        $("updateUpload_file").val(item.file_upload);
+        
     }
 
     // Get Store

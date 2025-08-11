@@ -54,11 +54,9 @@
 
              {{-- page_on --}}
             <div class="form-input-group">
-                <label for="page_on">Page_on</label>
-            
-               <input type="text" name="page_no" id="updatepage_no" class="form-input" autocomplete="off">
-
-                <span class="error" id="update_page_on_error"></span>
+                <label for="updatePage_no">Page no</label>
+               <input type="text" name="page_no" id="updatePage_no" class="form-input" autocomplete="off">
+                <span class="error" id="update_page_no_error"></span>
             </div>
 
              {{-- column_inch --}}

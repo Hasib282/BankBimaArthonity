@@ -20,25 +20,16 @@ class AdvertisementPublishController extends Controller{
        // Insert Advertise
    public function Insert(Request $req){
     // 1. Validation rules
-    $req->validate([
-        "tran_id"           => 'nullable|numeric',
-        "publication_date"  => 'required|date', // better to use date instead of numeric
-        "client_id"         => 'nullable',
-        "title"             => 'required|string',
-        "caption"           => 'nullable|string',
-        "category"          => 'required|string',
-        "page_no"           => 'nullable|string',
-        "column_inch"       => 'nullable|string',
-        "document"          => 'nullable|string',
-        "type"              => 'required|string',
-        "discount"          => 'nullable|numeric',
-    ]);
+        $req->validate([
+            "publication_date"  => 'required|date',
+            "user"              => 'required|exists:user__infos,user_id',
+        ]);
 
     // 2. Insert into DB
-    Advertisement_Info::create([
+    $insert = Advertisement_Info::create([
         "tran_id"           => $req->tran_id,
         "publication_date"  => $req->publication_date,
-        "client_id"         => $req->client_id,
+        "client_id"         => $req->user,
         "title"             => $req->title,
         "caption"           => $req->caption,
         "category"          => $req->category,
@@ -49,10 +40,12 @@ class AdvertisementPublishController extends Controller{
         "discount"          => $req->discount,
     ]);
 
+    $data = Advertisement_Info::on('mysql_second')->findOrFail($insert->id);
+
     return response()->json([
             'status'=> true,
             'message' => 'Bank Details Added Successfully',
-           
+            'data' => $data
         ], 200); 
 }
 
@@ -63,20 +56,13 @@ class AdvertisementPublishController extends Controller{
         // 1. Validate input
         $req->validate([
             "publication_date"  => 'required|date',
-            "client_id"         => 'nullable',
-            "title"             => 'required|string',
-            "caption"           => 'nullable|string',
-            "category"          => 'required|string',
-            "page_no"           => 'nullable|string',
-            "column_inch"       => 'nullable|string',
-            "type"              => 'required|string',
-            "discount"          => 'nullable|numeric',
+            "user"              => 'required|exists:user__infos,user_id',
         ]);
 
         // 2. Find and update
         $update = Advertisement_Info::on('mysql_second')->findOrFail($req->id)->update([
             "publication_date"  => $req->publication_date,
-            "client_id"         => $req->client_id,
+            "client_id"         => $req->user,
             "title"             => $req->title,
             "caption"           => $req->caption,
             "category"          => $req->category,
@@ -113,8 +99,7 @@ class AdvertisementPublishController extends Controller{
     
 
 
-   // Delete I Status
-    public function DeleteStatus(Request $req){
+   public function DeleteStatus(Request $req){
         $data = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
         $data->update(['status' => $data->status == 0 ? 1 : 0]);
         

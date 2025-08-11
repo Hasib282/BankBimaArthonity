@@ -28,7 +28,7 @@
             {{-- Description --}}
             <div class="form-input-group">
                 <label for="Description">Description</label>
-                <input type="text" name="Description" class="form-input" id="Description" autocomplete="off">
+                <input type="text" name="description" class="form-input" id="Description" autocomplete="off">
                 <span class="error" id="description_error"></span>
             </div>
 

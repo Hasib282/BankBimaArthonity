@@ -30,7 +30,9 @@
             {{-- Description --}}
             <div class="form-input-group">
                 <label for="updateDescription">Description</label>
-                <input type="text" name="Description" class="form-input" id="updateDescription" autocomplete="off">
+               <input type="text" name="description" class="form-input" id="updateDescription" autocomplete="off">
+
+
                 <span class="error" id="update_description_error"></span>
             </div>
 

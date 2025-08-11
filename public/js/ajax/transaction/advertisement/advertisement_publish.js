@@ -85,14 +85,14 @@ $(document).ready(function () {
     DeleteAjax("advertise/publish");
 
     // Delete status bAjax
-    DeleteStatusAjax("advertise/publish/delete");
+    DeleteStatusAjax("advertise/publish");
 
     // Search By Date Ajax
-    SearchByDateAjax(
+   /* SearchByDateAjax(
         "inventory/adjustment/negative/seaarch",
         ShowAdvertisementInfo,
         { type: 5, method: "Negative" }
-    );
+    );*/
 
     // Additional Edit Functionality
     function EditFormInputValue(item) {
