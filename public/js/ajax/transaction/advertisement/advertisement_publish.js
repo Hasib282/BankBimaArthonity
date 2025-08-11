@@ -10,7 +10,7 @@ function ShowAdvertisementInfo(res) {
             "category",
             "page_no",
             "column_inch",
-            "",
+
         ],
 
         actions: (row) => {
@@ -47,13 +47,13 @@ $(document).ready(function () {
     // Render The Table Heads
     renderTableHead([
         { label: "SL:", type: "rowsPerPage", options: [15, 30, 50, 100, 500] },
-        { label: " Publication Date", key: "added_at" },
-        { label: " Client id", key: "tran_id" },
-        { label: "Title", key: "head.tran_head_name" },
-        { label: "Caption", key: "head.tran_head_name" },
-        { label: "Category", key: "head.tran_head_name" },
-        { label: "Page NO", key: "store.store_name" },
-        { label: "Column Inch", key: "store.store_name" },
+        { label: "Publication Date", key: "publication_date" },
+        { label: "Client id", key: "client_id" },
+        { label: "Title", key: "title" },
+        { label: "Caption", key: "caption" },
+        { label: "Category", key: "category" },
+        { label: "Page NO", key: "page_no" },
+        { label: "Column Inch", key: "column_inch" },
 
         { label: "Action", type: "button" },
     ]);
@@ -79,26 +79,13 @@ $(document).ready(function () {
 
     // Update Ajax
     UpdateAjax(
-        "inventory/adjustment/negative",
-        {
-            product: { selector: "#updateProduct", attribute: "data-id" },
-            groupe: { selector: "#updateProduct", attribute: "data-groupe" },
-            method: "Negative",
-            type: 5,
-        },
-        function () {
-            $("#updateProduct").val("");
-            $("#updateProduct").removeAttr("data-id");
-            $("#updateProduct").removeAttr("data-groupe");
-            $("#updateQuantity").val("1");
-        }
-    );
+        "advertise/publish", { location: { selector: '#updateLocation', attribute: 'data-id' } });
 
     // Delete Ajax
     DeleteAjax("advertise/publish");
 
     // Delete status bAjax
-    DeleteStatusAjax("advertise/publish/");
+    DeleteStatusAjax("advertise/publish/delete");
 
     // Search By Date Ajax
     SearchByDateAjax(
@@ -109,16 +96,21 @@ $(document).ready(function () {
 
     // Additional Edit Functionality
     function EditFormInputValue(item) {
+        console.log(item);
         $("#id").val(item.id);
-        $("#updateTranId").val(item.tran_id);
-        $("#updateStore").val(item.store_id);
-        $("#updateProduct").attr("data-groupe", item.tran_groupe_id);
-        $("#updateProduct").attr("data-id", item.tran_head_id);
-        $("#updateProduct").val(item.head.tran_head_name);
-        $("#updateQuantity").val(item.quantity);
-        $("#updateCp").val(item.cp);
-        $("#updateMrp").val(item.mrp);
+        $("#updatepublication_date").val(item.publication_date);
+        $("#updateuser").val(item.client_id);
+        $("#updatetitle").val(item.title);
+        $("#updatecaption").val(item.caption);
+        $("#updatecategory").val(item.category);
+        $("#updatepage_no").val(item.page_no);
+        $("#updatecolumn_inch").val(item.column_inch);
+        $("#updatetype").val(item.type);
+        $("#updatediscount").val(item.discount);
+
+
     }
+
 
     // Get Store
     GetSelectInputList("admin/stores/get", function (res) {

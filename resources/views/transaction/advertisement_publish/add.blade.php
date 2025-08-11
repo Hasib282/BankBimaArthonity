@@ -53,7 +53,7 @@
 
              {{-- page_on --}}
             <div class="form-input-group">
-                <label for="page_on">Page_on</label>
+                <label for="updatepage_on">Page_on</label>
                 <input type="text" name="page_on" class="form-input" id="page_on" autocomplete="off">
                 <span class="error" id="page_on_error"></span>
             </div>

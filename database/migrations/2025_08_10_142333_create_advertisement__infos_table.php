@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->string('discount')->nullable();
 
+            $table->tinyInteger('status')->default('1');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();
         });
