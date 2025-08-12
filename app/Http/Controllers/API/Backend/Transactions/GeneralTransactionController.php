@@ -301,11 +301,11 @@ class GeneralTransactionController extends Controller
 
     // Delete General Transaction Status
     public function DeleteStatus(Request $req){
-        $data = Transaction_Main::on('mysql')->findOrFail($req->id);
+        $data = Transaction_Main::on('mysql_second')->findOrFail($req->id);
         $data->update(['status' => $data->status == 0 ? 1 : 0]);
         Transaction_Detail::on('mysql_second')->where("tran_id", $data->tran_id)->update(['status' => $data->status == 0 ? 1 : 0]);
         
-        $updatedData = Transaction_Main::on('mysql')->with('User')->findOrFail($req->id);
+        $updatedData = Transaction_Main::on('mysql_second')->with('User')->findOrFail($req->id);
         
         return response()->json([
             'status'=> true,

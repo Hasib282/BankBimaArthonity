@@ -20,7 +20,7 @@
                 <span class="error" id="update_name_error"></span>
             </div>
 
-            @if(Request::segment(1) == 'transaction' || Request::segment(1) == 'inventory' || Request::segment(1) == 'pharmacy') 
+            @if(Request::segment(1) == 'admin' || Request::segment(1) == 'inventory' || Request::segment(1) == 'pharmacy') 
                 {{-- role --}}
                 <div class="form-input-group">
                     <label for="updateRole">User Role <span class="required" title="Required">*</span></label>

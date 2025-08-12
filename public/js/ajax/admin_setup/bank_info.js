@@ -18,7 +18,7 @@ function ShowBanks(res) {
 
             if (userPermissions.includes(286) || role == 1) {
                 buttons += `
-                <button data-id="${row.id}" id="delete_status" class="icon-wrapper" title="Toggle Delete"><i class="fa-solid fa-trash-arrow-up main-icon"></i><i class="fa-solid fa-arrows-rotate ring-icon"></i></button>
+                
                 `;
                 
                 if (role == 1 || role == 2) {
