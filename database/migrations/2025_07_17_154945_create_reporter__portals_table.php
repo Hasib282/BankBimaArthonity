@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::connection('mysql_second')->create('reporter__portals', function (Blueprint $table) {
             $table->id();
-            $table->string("reporter_id");
-            $table->string("title");
-            $table->text("description");
-            $table->string("file_upload");
+            $table->string("reporter_id")->nullable();
+            $table->string("title")->nullable();
+            $table->text("description")->nullable();
+            $table->string("file_upload")->nullable();
+
             $table->tinyInteger('status')->default('1');
             $table->timestamp('added_at')->useCurrent();
             $table->timestamp('updated_at')->nullable();

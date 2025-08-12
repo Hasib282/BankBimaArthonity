@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers\API\Backend\Transactions;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Advertisement_Info;
+
+class AdvertisementPublishController extends Controller{
+      // Show All Advertise
+    public function Show(Request $req){
+        $data = Advertisement_Info::on('mysql_second')->orderBy('added_at','asc')->get();
+        return response()->json([
+            'status'=> true,
+            'data' => $data,
+        ], 200);
+    } // End Method
+
+
+       // Insert Advertise
+   public function Insert(Request $req){
+    // 1. Validation rules
+        $req->validate([
+            "publication_date"  => 'required|date',
+            "user"              => 'required|exists:user__infos,user_id',
+        ]);
+
+    // 2. Insert into DB
+    $insert = Advertisement_Info::create([
+        "tran_id"           => $req->tran_id,
+        "publication_date"  => $req->publication_date,
+        "client_id"         => $req->user,
+        "title"             => $req->title,
+        "caption"           => $req->caption,
+        "category"          => $req->category,
+        "page_no"           => $req->page_no,
+        "column_inch"       => $req->column_inch,
+        "document"          => $req->document,
+        "type"              => $req->type,
+        "discount"          => $req->discount,
+    ]);
+
+    $data = Advertisement_Info::on('mysql_second')->findOrFail($insert->id);
+
+    return response()->json([
+            'status'=> true,
+            'message' => 'Added Successfully',
+            'data' => $data
+        ], 200); 
+}
+
+
+    // Update Advertise
+    public function Update(Request $req)
+    {
+        // 1. Validate input
+        $req->validate([
+            "publication_date"  => 'required|date',
+            "user"              => 'required|exists:user__infos,user_id',
+        ]);
+
+        // 2. Find and update
+        $update = Advertisement_Info::on('mysql_second')->findOrFail($req->id)->update([
+            "publication_date"  => $req->publication_date,
+            "client_id"         => $req->user,
+            "title"             => $req->title,
+            "caption"           => $req->caption,
+            "category"          => $req->category,
+            "page_no"           => $req->page_no,
+            "column_inch"       => $req->column_inch,
+            "type"              => $req->type,
+            "discount"          => $req->discount,
+        ]);
+        
+        $updatedData = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
+
+        if($update){
+            return response()->json([
+                'status'=>true,
+                'message' => 'Updated Successfully',
+                "updatedData" => $updatedData,
+            ], 200); 
+        }
+    }
+
+
+
+
+     // Delete 
+    public function Delete(Request $req){
+        $data = Advertisement_Info::on('mysql_second')->findOrFail($req->id)->delete();
+        return response()->json([
+            'status'=> true,
+            'message' => ' Deleted Successfully',
+        ], 200);
+    } // End Method
+
+
+    
+
+
+   public function DeleteStatus(Request $req){
+        $data = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
+        $data->update(['status' => $data->status == 0 ? 1 : 0]);
+        
+        $updatedData = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
+        
+        return response()->json([
+            'status'=> true,
+            'message' => ' Deleted Successfully',
+            'updatedData' => $updatedData
+        ], 200);
+    } // End Method
+}

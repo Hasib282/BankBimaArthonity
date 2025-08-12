@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Reporter_Portal extends Model
+class Advertisement_Info extends Model
 {
     protected $connection = 'mysql_second';
     
@@ -12,13 +12,9 @@ class Reporter_Portal extends Model
 
     public $timestamps = false;
 
-    public function Reporterinfo(){
-        return $this->belongsTo(Employee_Personal_Detail::class,'reporter_id','employee_id');
+    
+    public function transaction(){
+        return $this->belongsTo(Transaction_Detail::class,'tran_id','tran_id');
     }
-
-
-          
-
-
 
 }

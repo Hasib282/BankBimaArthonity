@@ -96,6 +96,7 @@ use App\Http\Controllers\API\Backend\Transactions\PartyTransactionController;
 use App\Http\Controllers\API\Backend\Transactions\PurchaseController;
 use App\Http\Controllers\API\Backend\Transactions\IssueController;
 use App\Http\Controllers\API\Backend\Transactions\PayrollProcessController;
+use App\Http\Controllers\API\Backend\Transactions\AdvertisementPublishController;
 
 
 
@@ -559,6 +560,20 @@ Route::middleware(['auth:sanctum', ApiValidUser::class, CheckPermission::class])
     }); // End Transaction Routes
 
     /////-----/////-----/////-----/////-----/////-----///// Transaction Routes End /////-----/////-----/////-----/////-----/////-----/////
+
+
+       // *************************************** Advertisement Routes Start *************************************** //
+        Route::controller(AdvertisementPublishController::class)->group(function () {
+            Route::prefix('/advertise')->group(function () {
+              ///////////// --------------- Advertisement Routes Routes ----------- ///////////////////
+                Route::get('/publish', 'Show');
+                Route::post('/publish', 'Insert');
+                Route::put('/publish', 'Update');
+                Route::delete('/publish', 'Delete')->withoutMiddleware([CheckPermission::class])->middleware(AdminSuperAdminAccess::class);
+                Route::delete('/publish/delete', 'DeleteStatus');
+                Route::get('/publish/search', 'Search');
+            });
+        }); // End AdvertisementPublishController
 
 
 

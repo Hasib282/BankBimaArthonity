@@ -1,25 +1,32 @@
-function ShowReporterPortal(res) {
+function ShowAdvertisementInfo(res) {
     tableInstance = new GenerateTable({
         tableId: "#data-table",
         data: res.data,
         tbody: [
-            "reporter_id",
+            "publication_date",
+            "client_id",
             "title",
-            "description",
-            "file_upload",
-            //{ key: "tran_date", type: "date" },
+            "caption",
+            "category",
+            "page_no",
+            "column_inch",
+
         ],
 
         actions: (row) => {
             let buttons = "";
 
-            if (userPermissions.includes(253) || role == 1) {
+            buttons += `
+                <button class="open-modal" data-modal-id="detailsModal" id="details" data-id="${row.user_id}"><i class="fa-solid fa-circle-info"></i></button>
+            `;
+
+            if (userPermissions.includes(27) || role == 1) {
                 buttons += `
                     <button data-modal-id="editModal" id="edit" data-id="${row.id}"><i class="fas fa-edit"></i></button>
                 `;
             }
 
-            if (userPermissions.includes(254) || role == 1) {
+            if (userPermissions.includes(28) || role == 1) {
                 buttons += `
                 <button data-id="${row.id}" id="delete_status" class="icon-wrapper" title="Toggle Delete"><i class="fa-solid fa-trash-arrow-up main-icon"></i><i class="fa-solid fa-arrows-rotate ring-icon"></i></button>
                 `;
@@ -40,54 +47,70 @@ $(document).ready(function () {
     // Render The Table Heads
     renderTableHead([
         { label: "SL:", type: "rowsPerPage", options: [15, 30, 50, 100, 500] },
-        { label: " Reporter Id", key: "reporter_id" },
+        { label: "Publication Date", key: "publication_date" },
+        { label: "Client id", key: "client_id" },
         { label: "Title", key: "title" },
-        { label: "Description", key: "description" },
-        { label: "Upload file", key: "file_upload" },
+        { label: "Caption", key: "caption" },
+        { label: "Category", key: "category" },
+        { label: "Page NO", key: "page_no" },
+        { label: "Column Inch", key: "column_inch" },
+
         { label: "Action", type: "button" },
     ]);
+
+    GetTransactionWith("2", "Receive", "#within");
 
     // Load Transaction Groupe
     GetTransactionGroupe(5);
 
     // Load Data on Hard Reload
-    ReloadData("reporter", ShowReporterPortal);
+    ReloadData("advertise/publish", ShowAdvertisementInfo);
 
     // Add Modal Open Functionality
     AddModalFunctionality("#store");
 
     // Insert Ajax
-    InsertAjax("reporter",);
+    InsertAjax("advertise/publish", {
+        user: { selector: "#user", attribute: "data-id" },
+    });
 
     //Edit Ajax
     EditAjax(EditFormInputValue);
 
     // Update Ajax
     UpdateAjax(
-        "reporter");
+        "advertise/publish", { location: { selector: '#updateLocation', attribute: 'data-id' } });
 
     // Delete Ajax
-    DeleteAjax("reporter");
+    DeleteAjax("advertise/publish");
 
     // Delete status bAjax
-    DeleteStatusAjax("reporter");
+    DeleteStatusAjax("advertise/publish");
 
     // Search By Date Ajax
-    SearchByDateAjax(
-        "reporter",
-        ShowReporterPortal,
+   /* SearchByDateAjax(
+        "inventory/adjustment/negative/seaarch",
+        ShowAdvertisementInfo,
         { type: 5, method: "Negative" }
-    );
+    );*/
 
     // Additional Edit Functionality
     function EditFormInputValue(item) {
+        console.log(item);
         $("#id").val(item.id);
-        $("#updateReporter_id").val(item.reporter_id);
-        $("#updateTitle").val(item.title);   
-        $("#updateDescription").val(item.description);
-        $("updateUpload_file").val(item.file_upload);
-        
+        $("#updatepublication_date").val(item.publication_date);
+        $("#updateuser").val(item.client_id);
+        $("#updatetitle").val(item.title);
+        $("#updatecaption").val(item.caption);
+        $("#updatecategory").val(item.category);
+        $("#updatepage_no").val(item.page_no);
+        $("#updatecolumn_inch").val(item.column_inch);
+        $("#updatetype").val(item.type);
+        $("#updatediscount").val(item.discount);
+
+
     }
+
 
     // Get Store
     GetSelectInputList("admin/stores/get", function (res) {
