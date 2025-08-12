@@ -3,7 +3,7 @@ function ShowReporterPortal(res) {
         tableId: "#data-table",
         data: res.data,
         tbody: [
-            "reporter_id",
+            "reporterinfo.name",
             "title",
             "description",
             "file_upload",
@@ -40,7 +40,7 @@ $(document).ready(function () {
     // Render The Table Heads
     renderTableHead([
         { label: "SL:", type: "rowsPerPage", options: [15, 30, 50, 100, 500] },
-        { label: " Reporter Id", key: "reporter_id" },
+        { label: "Reporter Id", key: "reporterinfo.name" },
         { label: "Title", key: "title" },
         { label: "Description", key: "description" },
         { label: "Upload file", key: "file_upload" },
@@ -57,14 +57,13 @@ $(document).ready(function () {
     AddModalFunctionality("#store");
 
     // Insert Ajax
-    InsertAjax("reporter",);
+    InsertAjax("reporter",{reporter: {selector:'#reporter_id', attribute:'data-id'}});
 
     //Edit Ajax
     EditAjax(EditFormInputValue);
 
     // Update Ajax
-    UpdateAjax(
-        "reporter");
+    UpdateAjax("reporter",{reporter: {selector:'#updateReporter_id', attribute:'data-id'}});
 
     // Delete Ajax
     DeleteAjax("reporter");
@@ -82,11 +81,11 @@ $(document).ready(function () {
     // Additional Edit Functionality
     function EditFormInputValue(item) {
         $("#id").val(item.id);
-        $("#updateReporter_id").val(item.reporter_id);
-        $("#updateTitle").val(item.title);   
+        $("#updateReporter_id").val(item.reporterinfo.name);
+        $("#updateReporter_id").attr('data-id',item.reporterinfo.employee_id);
+        $("#updateTitle").val(item.title);
         $("#updateDescription").val(item.description);
         $("updateUpload_file").val(item.file_upload);
-        
     }
 
     // Get Store

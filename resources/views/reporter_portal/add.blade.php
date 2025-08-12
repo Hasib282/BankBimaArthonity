@@ -14,9 +14,10 @@
             @method('POST')
            {{-- Reporter id  --}}
             <div class="form-input-group">
-                <label for="reporter_id">Reporter id</label>
-                <input type="text" name="reporter_id" class="form-input" id="reporter_id" autocomplete="off">
-                <span class="error" id="reporter_id_error"></span>
+                <label for="reporter_id">Reporter</label>
+                <input type="text" name="reporter_id" class="form-input" id="reporter_id" autocomplete="off"><hr>
+                <div id="reporter_id-list"></div>
+                <span class="error" id="reporter_error"></span>
             </div>
             
             {{-- title  --}}

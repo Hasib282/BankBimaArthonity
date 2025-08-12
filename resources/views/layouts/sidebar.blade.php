@@ -345,10 +345,10 @@
             <hr>
         @endif
 
-<!-- Advertiser Info Menue -->
-         @if(auth()->user()->hasPermissionMainHead('6'))
+        <!-- Advertiser Info Menue -->
+        @if(auth()->user()->hasPermissionMainHead('6'))
             <li class="menu-item" data-url="{{route('show.publish')}}">
-                <div class="menu-title {{ Request::segment(1) == 'reporter' ? 'active':''}}">
+                <div class="menu-title {{ (Request::segment(1) == 'advertiser' && Request::segment(2) == 'publish') ? 'active':''}}">
                     <p>
                         <i class="fa-solid fa-truck-ramp-box"></i>
                         Advertisement Publish

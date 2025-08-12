@@ -17,7 +17,8 @@
               {{-- Reporter id  --}}
             <div class="form-input-group">
                 <label for="updateReporter_id">Reporter id</label>
-                <input type="text" name="reporter_id" class="form-input" id="updateReporter_id" autocomplete="off">
+                <input type="text" name="reporter_id" class="form-input" id="updateReporter_id" autocomplete="off"><hr>
+                <div id="update-reporter_id"></div>
                 <span class="error" id="update_reporter_id_error"></span>
             </div>
             

@@ -1812,4 +1812,43 @@ $(document).ready(function () {
             $('#updateFrom_bed').removeAttr('data-id');
         }
     );
+
+
+
+
+    /////////////// ------------------ Search Bank by Name and add value to input ajax part start ---------------- /////////////////////////////
+    // Bank Input Search
+    SearchByInput(
+        'reporter/get', 
+
+        function ($input) {
+            return {
+                search: $('#reporter_id').val(),
+            };
+        },
+
+        '#reporter_id', 
+
+        '#reporter_id-list',
+
+        '#reporter_id-list li',
+    );
+
+
+    // Update Bank Input Search
+    SearchByInput(
+        'reporter/get', 
+
+        function ($input) {
+            return {
+                search: $('#reporter_id').val(),
+            };
+        }, 
+
+        '#updateReporter_id', 
+
+        '#update-reporter_id',
+
+        '#update-reporter_id li',
+    );
 });

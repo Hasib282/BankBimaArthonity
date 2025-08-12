@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Backend\Setup;
 
 use App\Http\Controllers\Controller;
 use App\Models\Reporter_Portal;
+use App\Models\Employee_Personal_Detail;
 use Illuminate\Http\Request;
 
 
@@ -34,12 +35,12 @@ class ReporterPortalController extends Controller
     public function Insert(Request $req){
         $type = GetTranType($req->segment(2));
         $req->validate([
-            'reporter_id' => 'required',
+            'reporter' => 'required',
             
         ]);
 
         $insert = Reporter_Portal::on('mysql_second')->create([
-            'reporter_id' => $req->reporter_id,
+            'reporter_id' => $req->reporter,
             'title' => $req->title,
             'description'=> $req->description,
             'file_upload'=> $req->upload_file,
@@ -157,20 +158,20 @@ public function Update(Request $req)
 
     // Get  By Name
     public function Get(Request $req){
-        $type = GetTranType($req->type);
-        $data = filterByCompany(
-                        Reporter_Portal::on('mysql_second')
-                        ->where('type_id', $type)
-                        ->where('category_name', 'like', '%'.$req->category.'%')
-                    )
-                    ->orderBy('category_name','asc')
-                    ->take(10)
-                    ->get();
+        $data = Employee_Personal_Detail::on("mysql_second")
+        ->where('tran_user_type',1)
+        // ->where('tran_user_type','like', $req->type.'%')
+        ->where('employee_id','like', $req->search.'%')
+        ->orWhere('name','like', $req->search.'%')
+        ->orderBy('name')
+        ->take(15)
+        ->get();
+
 
         $list = "<ul>";
             if($data->count() > 0){
                 foreach($data as $index => $item) {
-                    $list .= '<li tabindex="' . ($index + 1) . '" data-id="'.$item->id.'">'.$item->category_name.'</li>';
+                    $list .= '<li tabindex="' . ($index + 1) . '" data-id="'.$item->employee_id.'">'.$item->name.'</li>';
                 }
             }
             else{

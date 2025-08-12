@@ -99,4 +99,5 @@
 
     <!-- ajax part start from here -->
     <script src="{{ asset('js/ajax/reporter_portal/reporter_portal.js') }}"></script>
+    <script src="{{ asset('js/ajax/search_by_input.js') }}"></script>
 @endsection
