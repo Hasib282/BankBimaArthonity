@@ -14,12 +14,19 @@ class ReporterPortalController extends Controller
 
 
     public function Show(Request $req){
-        $data = Reporter_Portal::on('mysql_second')->orderBy('added_at','asc')->get();
+       /* $data = Reporter_Portal::on('mysql_second')->orderBy('added_at','asc')->get();*/
+       $data = Reporter_Portal::on('mysql_second')
+        ->with('Reporterinfo') // Load related Employee_Personal_Detail
+        ->orderBy('added_at', 'asc')
+        ->get();
+        
         return response()->json([
             'status'=> true,
             'data' => $data,
         ], 200);
     } // End Method
+
+
 
     // Show Reporter Portal Statement
 
@@ -38,7 +45,7 @@ class ReporterPortalController extends Controller
             'file_upload'=> $req->upload_file,
         ]);
 
-        $data = Reporter_Portal::on('mysql_second')->findOrFail($insert->id);
+        $data = Reporter_Portal::on('mysql_second')->with('Reporterinfo')->findOrFail($insert->id);
         
         return response()->json([
             'status'=> true,
@@ -110,7 +117,7 @@ public function Update(Request $req)
     $reporterPortal->update($updateData);
 
     // Fetch updated data to return
-    $updatedData = Reporter_Portal::on('mysql_second')->findOrFail($req->id);
+    $updatedData = Reporter_Portal::on('mysql_second')->with('Reporterinfo')->findOrFail($req->id);
 
     return response()->json([
         'status' => true,

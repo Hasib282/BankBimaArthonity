@@ -44,7 +44,7 @@ class AdvertisementPublishController extends Controller{
 
     return response()->json([
             'status'=> true,
-            'message' => 'Bank Details Added Successfully',
+            'message' => 'Added Successfully',
             'data' => $data
         ], 200); 
 }
@@ -77,7 +77,7 @@ class AdvertisementPublishController extends Controller{
         if($update){
             return response()->json([
                 'status'=>true,
-                'message' => 'Category Updated Successfully',
+                'message' => 'Updated Successfully',
                 "updatedData" => $updatedData,
             ], 200); 
         }

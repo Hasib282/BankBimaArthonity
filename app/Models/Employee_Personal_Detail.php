@@ -15,7 +15,7 @@ class Employee_Personal_Detail extends Model
     }
 
     public function Department(){
-        return $this->belongsTo(Department_Info::class,'department','id');
+        return $this->belongsTo(Department::class,'department','id');
     }
 
     public function Location(){

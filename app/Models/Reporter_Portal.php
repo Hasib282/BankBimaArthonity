@@ -11,4 +11,14 @@ class Reporter_Portal extends Model
     protected $guarded = [];
 
     public $timestamps = false;
+
+    public function Reporterinfo(){
+        return $this->belongsTo(Employee_Personal_Detail::class,'reporter_id','employee_id');
+    }
+
+
+          
+
+
+
 }
