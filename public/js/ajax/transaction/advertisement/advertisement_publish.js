@@ -54,32 +54,28 @@ $(document).ready(function () {
         { label: "Category", key: "category" },
         { label: "Page NO", key: "page_no" },
         { label: "Column Inch", key: "column_inch" },
-
         { label: "Action", type: "button" },
     ]);
 
     GetTransactionWith("2", "Receive", "#within");
 
     // Load Transaction Groupe
-    GetTransactionGroupe(5);
+    GetTransactionGroupe(1, "Receive");
 
     // Load Data on Hard Reload
     ReloadData("advertise/publish", ShowAdvertisementInfo);
 
     // Add Modal Open Functionality
-    AddModalFunctionality("#store");
+    AddModalFunctionality("#date");
 
     // Insert Ajax
-    InsertAjax("advertise/publish", {
-        user: { selector: "#user", attribute: "data-id" },
-    });
+    InsertAjax("advertise/publish", {client: { selector: "#user", attribute: "data-id" }, head: { selector: "#head", attribute: "data-id" }, groupe: { selector: "#head", attribute: "data-groupe" }});
 
     //Edit Ajax
     EditAjax(EditFormInputValue);
 
     // Update Ajax
-    UpdateAjax(
-        "advertise/publish", { location: { selector: '#updateLocation', attribute: 'data-id' } });
+    UpdateAjax("advertise/publish", { location: { selector: '#updateLocation', attribute: 'data-id' } });
 
     // Delete Ajax
     DeleteAjax("advertise/publish");
@@ -112,14 +108,9 @@ $(document).ready(function () {
     }
 
 
-    // Get Store
-    GetSelectInputList("admin/stores/get", function (res) {
-        CreateSelectOptions("#store", "Select Store", res.data, "store_name");
-        CreateSelectOptions(
-            "#updateStore",
-            "Select Store",
-            res.data,
-            "store_name"
-        );
-    });
+    // Get Payment Method
+    GetSelectInputList('admin/payment_method/get', function (res) {
+        CreateSelectOptions('#payment_method', 'Select Payment Method', res.data, 'name');
+        CreateSelectOptions('#updatePayment_method', 'Select Payment Method', res.data, 'name');
+    })
 });

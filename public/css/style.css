@@ -8,6 +8,13 @@
     box-sizing: border-box;
 }
 
+textarea {
+  resize: none; /* Prevents user resizing */
+  outline: none;
+  padding: 4px;
+}
+
+
 ul li{
     list-style: none;
 }
