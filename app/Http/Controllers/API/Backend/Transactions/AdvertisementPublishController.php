@@ -11,10 +11,12 @@ use App\Models\Transaction_Detail;
 class AdvertisementPublishController extends Controller{
     // Show All Advertise
     public function Show(Request $req){
-        $data = Advertisement_Info::on('mysql_second')->orderBy('added_at','asc')->get();
+        $data = Advertisement_Info::on('mysql_second')->with('transaction')->orderBy('added_at','asc')->get();
+        
         return response()->json([
             'status'=> true,
             'data' => $data,
+            
         ], 200);
     } // End Method
 
@@ -88,7 +90,7 @@ class AdvertisementPublishController extends Controller{
         ], 200); 
     }
 
-
+/*
 
     // Update Advertise
     public function Update(Request $req)
@@ -110,6 +112,7 @@ class AdvertisementPublishController extends Controller{
             "discount"          => $req->discount,
         ]);
         
+        
         $updatedData = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
 
         if($update){
@@ -121,6 +124,92 @@ class AdvertisementPublishController extends Controller{
         }
     } // End Method
 
+*/
+
+public function Update(Request $req)
+{
+    // 1️⃣ Validate the request
+    $req->validate([
+        "id"                => 'required|exists:advertisement__infos,id',
+        "publication_date"  => 'required|date',
+        "user"              => 'required|exists:user__infos,user_id',
+        
+    ]);
+
+    // 2️⃣ Update Advertisement_Info
+    $advertisement = Advertisement_Info::on('mysql_second')->findOrFail($req->id);
+    $advertisement->update([
+        "publication_date"  => $req->publication_date,
+        "client_id"         => $req->user,
+        "title"             => $req->title,
+        "caption"           => $req->caption,
+        "category"          => $req->category,
+        "page_no"           => $req->page_no,
+        "column_inch"       => $req->column_inch,
+        "type"              => $req->type,
+        "discount"          => $req->discount
+    ]);
+
+    // 3️⃣ Use the tran_id from Advertisement_Info
+    $tran_id = $advertisement->tran_id;
+
+    // 4️⃣ Update Transaction_Main if exists
+    $transactionMain = Transaction_Main::on('mysql_second')
+        ->where('tran_id', $tran_id)
+        ->first();
+
+    if ($transactionMain) {
+        $transactionMain->update([
+            "tran_type"     => 1,
+            "tran_method"   => 'Receive',
+            "tran_user"     => $req->user,
+            "bill_amount"   => $req->total,
+            "discount"      => $req->discount,
+            "net_amount"    => $req->total - $req->discount,
+            "receive"       => $req->advance,
+            "due"           => $req->total - $req->discount - $req->advance,
+            "payment_mode"  => $req->payment_method,
+            "note"          => $req->note
+        ]);
+    }
+
+    // 5️⃣ Update Transaction_Detail if exists
+    $transactionDetail = Transaction_Detail::on('mysql_second')
+        ->where('tran_id', $tran_id)
+        ->first();
+
+    if ($transactionDetail) {
+        $transactionDetail->update([
+            "tran_type"         => 1,
+            "tran_method"       => 'Receive',
+            "tran_user"         => $req->user,
+            "tran_groupe_id"    => $req->groupe,
+            "tran_head_id"      => $req->head,
+            "amount"            => $req->price,
+            "quantity"          => $req->quantity,
+            "tot_amount"        => $req->total,
+            "discount"          => $req->discount,
+            "receive"           => $req->advance,
+            "due"               => $req->total - $req->discount - $req->advance,
+            "payment_mode"      => $req->payment_method
+        ]);
+    }
+
+    // 6️⃣ Return updated Advertisement_Info with relations
+    $updatedData = Advertisement_Info::on('mysql_second')
+        ->with(['transaction','payment'])
+        ->findOrFail($req->id);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Updated Successfully',
+        'updatedData' => $updatedData
+    ], 200);
+}
+
+
+
+
 
 
     // Delete 
@@ -131,6 +220,9 @@ class AdvertisementPublishController extends Controller{
             'message' => ' Deleted Successfully',
         ], 200);
     } // End Method
+
+
+
 
     
 

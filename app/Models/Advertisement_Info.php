@@ -17,4 +17,8 @@ class Advertisement_Info extends Model
         return $this->belongsTo(Transaction_Detail::class,'tran_id','tran_id');
     }
 
+ 
+    
+
+
 }

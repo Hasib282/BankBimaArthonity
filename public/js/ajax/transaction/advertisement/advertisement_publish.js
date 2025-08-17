@@ -99,10 +99,16 @@ $(document).ready(function () {
         $("#updatetitle").val(item.title);
         $("#updatecaption").val(item.caption);
         $("#updatecategory").val(item.category);
-        $("#updatepage_no").val(item.page_no);
+        $("#updatePage_no").val(item.page_no);
         $("#updatecolumn_inch").val(item.column_inch);
         $("#updatetype").val(item.type);
-        $("#updatediscount").val(item.discount);
+        $("#updatediscount").val(item.transaction.discount);
+        $("#updatequantity").val(item.transaction.quantity);
+        $("#updateprice").val(item.transaction.amount);
+        $("#updatetotal").val(item.transaction.tot_amount);
+        $("#updateadvance").val(item.transaction.receive);
+        
+        
 
 
     }
