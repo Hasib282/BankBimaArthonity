@@ -35,6 +35,7 @@ return new class extends Migration
             $table->float('due_disc')->default(0)->nullable();
             $table->unsignedBigInteger('store_id')->nullable();
             $table->unsignedBigInteger('payment_mode')->nullable();
+            $table->text('note')->nullable();
             $table->string('booking_id')->nullable();
             $table->timestamp('tran_date')->useCurrent();
             $table->tinyInteger('status')->default('1')->comment('1 for Active 0 for Inactive');
